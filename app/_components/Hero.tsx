@@ -17,47 +17,76 @@ import {
 import { useCart } from '@/hooks/useCard'
 import { CartProvider } from '@/context/CartContext'
 import { FaStar, FaArrowRight } from "react-icons/fa";
+import Image from 'next/image'
 
 
 
-const Hero = ({ product }: { product: ProductType }) => {
+const Hero = ({ products }: { products: ProductType[] }) => {
 
 
-  const {addToCart} = useCart()
+  const { addToCart } = useCart()
 
   return (
-      <div className="flex justify-center pt-32">
-        <Card className="w-[1000px] flex flex-col ">
-          <p className='text-center font-bold text-primary text-2xl pt-3'></p>
-          <CardHeader>
-            <CardTitle><img className='  mx-auto object-center object-cover pb-2  w-44' src={product.image} alt={product.title} /></CardTitle>
-            <CardDescription><p className='text-primary line-clamp-1 text-start'>{product.title}</p>
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <div className='text-neutral-700 text-xs line-clamp-2'>{product.description}</div>
-              </div>
-              <div className="flex  justify-between">
-                <div className='text-neutral-700 text-xl '> ${product.price}</div>
-                <div className='text-neutral-700 text-xl flex'>
-                  <FaStar className='mr-1 text-yellow-400' />
-                  <FaStar className='mr-1 text-yellow-400' />
-                  <FaStar className='mr-1 text-yellow-400' />
-                  <FaStar className='mr-1 text-yellow-400' />
-                  <FaStar />
+    <section className="w-full py-12 md:py-24 lg:py-32">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="flex flex-col lg:flex-row gap-6 h-[600px]">
+          <Link href={`/product/${products[0].id}`} className="lg:w-[70%] h-full">
+            <Card className="overflow-hidden h-full transition-transform hover:scale-[1.02]">
+              <CardContent className="p-0 h-full flex flex-col">
+                <div className="relative flex items-center justify-center">
+                  <img
+                    src={products[0].image}
+                    alt={products[0].title}
+                    className='w-[400px] h-[460px] p-5'
+                  />
                 </div>
-              </div>
-            </div>
+                <div className="p-6 bg-white dark:bg-gray-800">
+                  <h2 className="text-3xl font-semibold mb-2 line-clamp-1">{products[0].title}</h2>
+                  <p className="text-gray-500 dark:text-gray-400 mb-4 line-clamp-2">{products[0].description}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
 
-          </CardContent>
-          <CardFooter className="w-full">
-            <Button className='w-full' onClick={() => addToCart(product)}>Add To Cart</Button>
-          </CardFooter>
-        </Card>
+          <div className="flex flex-col lg:w-[30%] h-full gap-6">
+            <Link href={`/product/${products[1].id}`} className="flex-1">
+              <Card className="overflow-hidden h-full transition-transform hover:scale-[1.02]">
+                <CardContent className="p-0 h-full flex flex-col">
+                  <div className="relative flex-grow">
+                    <img
+                      src={products[1].image}
+                      alt={products[1].title}
+                      className='w-[400px] h-[160px] p-5'
+                    />
+                  </div>
+                  <div className="p-4 bg-white dark:bg-gray-800">
+                    <h3 className="text-xl font-semibold mb-2 line-clamp-1">{products[1].title}</h3>
+                    <p className="text-gray-500 dark:text-gray-400 mb-2 line-clamp-2">{products[1].description}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+            <Link href={`/product/${products[2].id}`} className="flex-1">
+              <Card className="overflow-hidden h-full transition-transform hover:scale-[1.02]">
+                <CardContent className="p-0 h-full flex flex-col">
+                  <div className="relative flex-grow">
+                    <img
+                      src={products[2].image}
+                      alt={products[2].title}
+                      className='w-[400px] h-[160px] p-5'
+                    />
+                  </div>
+                  <div className="p-4 bg-white dark:bg-gray-800">
+                    <h3 className="text-xl font-semibold mb-2 line-clamp-1">{products[2].title}</h3>
+                    <p className="text-gray-500 dark:text-gray-400 mb-2 line-clamp-2">{products[2].description}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
+        </div>
       </div>
+    </section>
   )
 }
 

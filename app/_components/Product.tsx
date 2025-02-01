@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/card"
 import { useCart } from '@/hooks/useCard'
 import { CartProvider } from '@/context/CartContext'
+import { ShoppingCart, Star } from 'lucide-react'
+import Link from 'next/link'
 
 
 
@@ -19,31 +21,42 @@ import { CartProvider } from '@/context/CartContext'
 
 const Product = ({ product }: { product: ProductType }) => {
   const { addToCart } = useCart();
+  
 
   return (
-      <Card className="w-[350px] flex flex-col ">
-        <CardHeader>
-          <CardTitle><img className='  mx-auto object-center object-cover pb-2 ' src={product.image} alt={product.title} height={100} width={200} /></CardTitle>
-          <CardDescription><p className='text-green-800 line-clamp-1 text-start'>{product.title}</p>
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <div className='text-neutral-700 text-xs line-clamp-2'>{product.description}</div>
-            </div>
-            <div className="flex  justify-between">
-              <div className='text-neutral-700 text-xs '>Price: {product.price}$</div>
-              <div className='text-neutral-700 text-xs'>Rate: {product.rating.rate}/5</div>
-            </div>
+    <Link href={`/product/${product.id}`} className="lg:w-[70%] h-full">
+    <Card className="w-[350px] h-[490px] flex flex-col shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <CardHeader className="p-4">
+        <div className="relative h-48 w-full mb-4">
+          <img
+            className="absolute inset-0 w-full h-full object-contain"
+            src={product.image || "/placeholder.svg"}
+            alt={product.title}
+          />
+        </div>
+        <h3 className="font-semibold text-lg line-clamp-1 text-gray-800">{product.title}</h3>
+      </CardHeader>
+      <CardContent className="flex flex-col items-center  p-4">
+        <p className="text-sm text-gray-600 line-clamp-3 mb-4">{product.description}</p>
+        <div className="flex justify-between items-center w-full">
+          <span className="text-2xl font-bold text-primary">${product.price}</span>
+          <div className="flex items-center ">
+            <Star className="h-5 w-5 text-yellow-400 fill-current" />
+            <span className="ml-1 text-sm text-gray-600">{product.rating.rate.toFixed(1)}</span>
           </div>
-
-        </CardContent>
-        <CardFooter className="w-full">
-          <Button className='w-full' onClick={() => addToCart(product)}>Shop</Button>
-        </CardFooter>
-      </Card>
+        </div>
+      </CardContent>
+      <CardFooter className="p-4">
+        <Button
+          className="w-full text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center"
+          onClick={() => addToCart(product)}
+        >
+          <ShoppingCart className="mr-2 h-5 w-5" />
+          Add to Cart
+        </Button>
+      </CardFooter>
+    </Card>
+    </Link>
   )
 }
 

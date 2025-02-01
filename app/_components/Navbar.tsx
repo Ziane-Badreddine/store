@@ -30,7 +30,7 @@ const Navbar = () => {
   const { category } = useFetch()
   const { cart } = useCart()
   return (
-    <header className='fixed left-0 ring-0 w-full flex items-center justify-between py-5  px-10  mb-10 shadow-md backdrop-blur-md'>
+    <header className='fixed left-0 z-50 ring-0 w-full flex items-center justify-between py-5  px-10  mb-10 shadow-md backdrop-blur-md'>
       <div className='flex items-center justify-center gap-6 h-full'>
         <Link href={"/"}>
           <h1 className='text-2xl  font-bold text-primary'>

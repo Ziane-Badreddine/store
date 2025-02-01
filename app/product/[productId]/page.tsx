@@ -8,12 +8,13 @@ import { Star } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useCart } from "@/hooks/useCard";
 import Product from "@/app/_components/Product";
+import ProductSkeleton from "@/app/_components/ProductSkeleton";
 
 const Page = ({ params }: { params: Promise<{ productId: string }> }) => {
-  const resolvedParams = use(params); 
+  const resolvedParams = use(params);
   const { products } = useFetch();
   const [stars, setStars] = useState<(0 | 1)[]>([]);
-  const {addToCart} = useCart()
+  const { addToCart } = useCart()
 
   const productId = parseInt(resolvedParams.productId);
 
@@ -45,10 +46,10 @@ const Page = ({ params }: { params: Promise<{ productId: string }> }) => {
         <div className="flex flex-col justify-center h-[55vh]  items-center w-[60%] gap-5 p-5">
           <div className="flex flex-col justify-between h-full">
             <div>
-            <h1 className="text-xl font-medium mb-5">{product.title}</h1>
-            <p className="text-lg">
-              {product.description}
-            </p>
+              <h1 className="text-xl font-medium mb-5">{product.title}</h1>
+              <p className="text-lg">
+                {product.description}
+              </p>
             </div>
             <div>
               <div className="flex items-center justify-between gap-5">
@@ -76,9 +77,12 @@ const Page = ({ params }: { params: Promise<{ productId: string }> }) => {
           Consultez également
         </h1>
         <div className=" mt-10 grid grid-cols-3 gap-5">
-            {products.map((item,i) => {
-              return item.category === product.category ? <Product key={i} product={item} /> : null 
-            })}
+          {products.length > 0 ? products.map((item, i) => {
+            return item.category === product.category ? <Product key={i} product={item} /> : null
+          }) : products.map((item, i) => {
+            return item.category === product.category ? <ProductSkeleton key={i} /> : null
+          })}
+
         </div>
       </div>
 
