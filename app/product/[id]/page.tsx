@@ -32,9 +32,14 @@ export async function generateMetadata({
   }
 }
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+} ) {
   try {
-    const productPromise = getProduct(params.id)
+    const {id} = await params
+    const productPromise = getProduct(id)
     const allProductsPromise = getProducts()
 
     // Use Promise.all to fetch both in parallel
