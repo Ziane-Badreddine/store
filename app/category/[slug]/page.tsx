@@ -29,10 +29,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function CategoryPage({ params }: { params: { slug: string } }) {
+export default async function CategoryPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
   const products = await getProducts()
+  const { slug } = await params
 
-  const formattedSlug = params.slug.replace(/-/g, " ")
+  const formattedSlug =  slug.replace(/-/g, " ")
   const categoryProducts = products.filter((product) => product.category.toLowerCase() === formattedSlug)
 
   if (categoryProducts.length === 0) {

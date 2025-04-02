@@ -11,9 +11,14 @@ import ClientAddToCart from "@/components/client-add-to-cart"
 import Link from "next/link"
 import SocialShare from "@/components/social-share"
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
   try {
-    const product = await getProduct(params.id)
+    const {id} = await params
+    const product = await getProduct(id)
 
     return {
       title: `${product.title} - StoreApp`,
