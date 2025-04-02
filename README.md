@@ -31,6 +31,6 @@ A sleek and fully responsive e-commerce application built with Next.js, React, a
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/ecommerce-store.git
+   git clone https://github.com/Ziane-Badreddine/store.git
    cd ecommerce-store
 
